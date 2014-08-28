@@ -78,12 +78,14 @@ public class Main {
 		for (int i : modeMap.keySet()) {
 			if (modeMap.get(i) > frequency) {
 				frequency = modeMap.get(i);
-				mode = (i+",  Frequency: "+modeMap.get(i));
+				mode = (i+",  Frequency: "+modeMap.get(i)+" | ");
 				if (frequency > 1)
 					hasMode = true;
+			}else if (frequency == modeMap.get(i)){
+				mode+=(i+",  Frequency: "+modeMap.get(i)+" | ");
 			}
 		}
-		
+		mode = mode.substring(0, mode.lastIndexOf("|"));
 		if (hasMode)
 			return mode;
 		else
