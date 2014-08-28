@@ -10,7 +10,7 @@ public class Main {
 	public static int[] numArray;
 
 	public static void main(String[] args) {
-		solve("path_to_file");
+		solve("/Users/Alex/Desktop/numbers.txt");
 	}
 
 	public static void readData(String file) {
@@ -60,9 +60,9 @@ public class Main {
 				+ findStandardDeviation(numArray));
 	}
 
-	public static int findMode(int[] array) {
+	public static String findMode(int[] array) {
 		int frequency = 0;
-		int mode = 0;
+		String mode = "";
 		boolean hasMode = false;
 		HashMap<Integer, Integer> modeMap = new HashMap<Integer, Integer>();
 		for (int i = 0; i <= findBiggest(array); i++) {
@@ -78,15 +78,16 @@ public class Main {
 		for (int i : modeMap.keySet()) {
 			if (modeMap.get(i) > frequency) {
 				frequency = modeMap.get(i);
-				mode = i;
+				mode = (i+",  Frequency: "+modeMap.get(i));
 				if (frequency > 1)
 					hasMode = true;
 			}
 		}
+		
 		if (hasMode)
 			return mode;
 		else
-			return -1;
+			return "No mode, as all numbers have a frequency of 1";
 	}
 
 	public static int findBiggest(int[] array) {
