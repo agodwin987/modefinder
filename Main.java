@@ -1,19 +1,63 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Main {
+	public static int[] numArray;
 
 	public static void main(String[] args) {
-		int[] test = new int[] { 7, 4, 5, 9, 10 };
-		solve(test);
+		solve("path_to_file");
 	}
 
-	public static void solve(int[] array) {
-		System.out.println("Mode: " + findMode(array));
-		System.out.println("Average: " + findAverage(array));
+	public static void readData(String file) {
+		int total = 0;
+		try {
+			FileReader r = new FileReader(file);
+			BufferedReader br = new BufferedReader(r);
+			@SuppressWarnings("unused")
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				total++;
+			}
+			numArray = new int[total];
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		populate(file);
+	}
+
+	private static void populate(String file) {
+		try {
+			int counter = 0;
+			FileReader r = new FileReader(file);
+			BufferedReader br = new BufferedReader(r);
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				numArray[counter] = Integer.parseInt(line);
+				counter++;
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void solve(String file) {
+		readData(file);
+		System.out.println("Mode: " + findMode(numArray));
+		System.out.println("Average: " + findAverage(numArray));
 		System.out.println("Standard Deviation: "
-				+ findStandardDeviation(array));
+				+ findStandardDeviation(numArray));
 	}
 
 	public static int findMode(int[] array) {
